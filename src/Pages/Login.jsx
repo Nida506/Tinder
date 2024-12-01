@@ -23,7 +23,7 @@ const Login = () => {
       );
 
       dispatch(addUser(res.data));
-      console.log(res.data);
+
       return navigate("/");
     } catch (err) {
       setError(err.response.data);
@@ -61,7 +61,7 @@ const Login = () => {
             />
           </label>
           <p className="text-red-400">{error}</p>
-          <div className="card-actions flex justify-center mt-4">
+          <div className="card-actions flex justify-center mt-1">
             <button onClick={loginHandler} className="btn btn-primary">
               Login
             </button>
