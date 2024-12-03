@@ -6,6 +6,8 @@ import Body from "./components/Body";
 import Feed from "./Pages/Feed";
 import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
+import Connections from "./Pages/Connections";
+import Requests from "./Pages/Requests";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
               <Route path="/" element={<Feed />} />
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/connections" element={<Connections />} />
+              <Route path="/requests" element={<Requests />} />
             </Route>
           </Routes>
         </BrowserRouter>

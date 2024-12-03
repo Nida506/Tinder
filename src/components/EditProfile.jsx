@@ -142,7 +142,7 @@ const EditProfile = ({ user }) => {
 
         <div className="card bg-base-300 w-96  mx-4 shadow-xl">
           <figure>
-            <img src={photoUrl} alt="photo" />
+            <img src={photoUrl} alt="photo" className="w-96 height" />
           </figure>
           <div className="card-body">
             <h2 className="card-title">
