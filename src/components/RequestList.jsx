@@ -1,4 +1,5 @@
 const RequestList = ({ request, reviewRequestButtonHandler }) => {
+  // extract detail of request
   const { firstName, lastName, photoUrl, age, gender, about } =
     request.fromUserId;
 

@@ -14,6 +14,7 @@ const EditProfile = ({ user }) => {
   const [about, setAbout] = useState(user?.about);
   const [error, setError] = useState("");
   const [showToast, setShowToast] = useState(false);
+
   //editProfile handler
   const editProfileHandler = async () => {
     try {
@@ -33,9 +34,10 @@ const EditProfile = ({ user }) => {
       setError(err?.response?.data);
     }
   };
+
   return (
     <>
-      {/* for toast : show for messag */}
+      {/* for toast : show for message */}
 
       {showToast && (
         <div className="toast toast-top toast-center">

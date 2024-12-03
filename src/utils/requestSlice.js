@@ -7,7 +7,6 @@ const requestSlice = createSlice({
       return action.payload;
     },
     removeRequest: (state, action) => {
-      console.log("nida");
       const newArray = state.filter((req) => req._id !== action.payload);
       return newArray;
     },

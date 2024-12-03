@@ -8,9 +8,8 @@ import RequestList from "../components/RequestList";
 const Requests = () => {
   const dispatch = useDispatch();
   const requests = useSelector((store) => store.requests);
-  console.log(requests);
+  // review the requests either accepted or rejected
   const reviewRequestButtonHandler = async (status, _id) => {
-    console.log(status, _id);
     try {
       await axios.post(
         BASE_URL + "/request/review/" + status + "/" + _id,
@@ -23,7 +22,7 @@ const Requests = () => {
       console.error(err);
     }
   };
-
+  // fetch all requests comming from other users
   const fetchRequests = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/requests/received", {

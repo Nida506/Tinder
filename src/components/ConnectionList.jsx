@@ -1,6 +1,7 @@
 const ConnectionList = ({ connection }) => {
-  console.log(connection);
+  // extract details of single connection
   const { firstName, lastName, photoUrl, age, gender, about } = connection;
+
   return (
     <div className="flex justify-center mb-4">
       <div className="navbar bg-white  w-1/3">
