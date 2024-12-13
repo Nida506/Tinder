@@ -3,7 +3,6 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import Navbar from "./Navbar";
-// import Footer from "./Footer";
 import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
 
@@ -14,8 +13,8 @@ const Body = () => {
 
   // for fetch logged in user details
   const fetchUser = async () => {
-    if (userData) return;
     try {
+      if (userData) return;
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
       });
@@ -23,7 +22,7 @@ const Body = () => {
       dispatch(addUser(res.data));
     } catch (err) {
       //token not valid
-      if (err.status === 401) navigate("/login");
+      if (err.status === 401) navigate("/");
       //other code errror
       console.error(err);
     }
@@ -38,7 +37,6 @@ const Body = () => {
     <div>
       <Navbar />
       <Outlet />
-      {/* <Footer /> */}
     </div>
   );
 };

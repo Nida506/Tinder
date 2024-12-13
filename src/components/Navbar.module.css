@@ -1,0 +1,14 @@
+.btn {
+  background: white;
+
+  color: black;
+}
+.btn:hover {
+  background: rgb(253, 50, 110);
+  background: linear-gradient(
+    119deg,
+    rgba(253, 50, 110, 1) 0%,
+    rgb(246, 56, 35) 100%
+  );
+  color: white;
+}

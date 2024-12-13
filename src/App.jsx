@@ -8,6 +8,7 @@ import Login from "./Pages/Login";
 import Profile from "./Pages/Profile";
 import Connections from "./Pages/Connections";
 import Requests from "./Pages/Requests";
+import LandingPage from "./Pages/LandingPage";
 
 function App() {
   return (
@@ -15,9 +16,10 @@ function App() {
       <Provider store={appStore}>
         <BrowserRouter basename="/">
           <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<Body />}>
-              <Route path="/" element={<Feed />} />
-              <Route path="/login" element={<Login />} />
+              <Route path="/explore" element={<Feed />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />
