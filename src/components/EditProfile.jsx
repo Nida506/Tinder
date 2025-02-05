@@ -3,7 +3,7 @@ import { useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
-
+import styles from "./EditProfile.module.css";
 const EditProfile = ({ user }) => {
   const dispatch = useDispatch();
   const [firstName, setFirstName] = useState(user?.firstName);
@@ -47,116 +47,119 @@ const EditProfile = ({ user }) => {
         </div>
       )}
 
-      <div className="flex justify-center mb-40 mt-12 ">
+      <div className="flex justify-center pb-2 pt-12 ">
         {/* edit profile */}
-        <div className="card bg-base-300 w-96 mx-4 shadow-xl ">
-          <div className="card-body">
-            <h2 className="card-title text-primary flex justify-center">
-              Edit Profile
+        <div
+          className={`card bg-white pb-4 border-stone-950 border-2  ${styles.widthCard1} mx-4 shadow-xl rounded-none `}
+        >
+          <div className="card-body pt-5 pb-3">
+            <h2 className="card-title text-stone-950 font-bold text-3xl mb-2 flex justify-center">
+              Edit Your Profile
             </h2>
             {/* for first Name */}
             <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">First Name </span>
-              </div>
               <input
                 type="text"
                 value={firstName}
+                placeholder="Enter Your First Name ..."
                 onChange={(e) => setFirstName(e.target.value)}
-                className="input input-bordered w-full max-w-xs"
+                className={`input input-bordered text-base placeholder-stone-300 ${styles.paddingOnYaxis} bg-stone-950 text-white w-full max-w-xs`}
               />
             </label>
             {/* for last name */}
             <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">LastName </span>
-              </div>
               <input
                 type="text"
                 value={lastName}
+                placeholder="Enter Last Name ..."
                 onChange={(e) => setLastName(e.target.value)}
-                className="input input-bordered w-full max-w-xs"
+                className={`input input-bordered text-base placeholder-stone-300 ${styles.paddingOnYaxis} bg-stone-950 text-white w-full max-w-xs`}
               />
             </label>
 
             {/* for photoUrl */}
             <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">photoUrl </span>
-              </div>
               <input
                 type="text"
                 value={photoUrl}
+                placeholder="Enter Photo Url ..."
                 onChange={(e) => setPhotoUrl(e.target.value)}
-                className="input input-bordered w-full max-w-xs"
+                className={`input input-bordered text-base placeholder-stone-300 ${styles.paddingOnYaxis} bg-stone-950 text-white w-full max-w-xs`}
               />
             </label>
 
-            {/* for last name */}
+            {/* for age */}
             <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">Age </span>
-              </div>
               <input
                 type="text"
                 value={age}
+                placeholder="Enter Age ..."
                 onChange={(e) => setAge(e.target.value)}
-                className="input input-bordered w-full max-w-xs"
+                className={`input input-bordered text-base placeholder-stone-300 ${styles.paddingOnYaxis} bg-stone-950 text-white w-full max-w-xs`}
               />
             </label>
 
-            {/* for last name */}
+            {/* about */}
             <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">Gender </span>
-              </div>
-              <input
-                type="text"
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
-                className="input input-bordered w-full max-w-xs"
-              />
-            </label>
-
-            {/* for last name */}
-            <label className="form-control w-full max-w-xs">
-              <div className="label">
-                <span className="label-text">About </span>
-              </div>
-              <input
+              <textarea
                 type="text"
                 value={about}
+                placeholder="Enter something About You ..."
                 onChange={(e) => setAbout(e.target.value)}
-                className="input input-bordered w-full max-w-xs"
+                className={`textarea textarea-bordered text-base  placeholder-stone-300 ${styles.paddingOnYaxisTextArea} bg-stone-950 text-white w-full max-w-xs`}
               />
             </label>
-            {/* for error show */}
-            {error && <p className="text-red-400">{error}</p>}
-            <div className="card-actions flex justify-center mt-1">
-              <button onClick={editProfileHandler} className="btn btn-primary">
+
+            {/* for gender */}
+            <details className="dropdown dropdown-bottom">
+              <summary className="w-32 btn flex ps-6 justify-start left-0  py-3 rounded-md bg-stone-950 text-base text-white cursor-pointer hover:bg-stone-950">
+                {gender || "Gender"}
+              </summary>
+              <ul className="menu dropdown-content bg-stone-950 rounded-md rounded-t-none border-t-2 border-white z-10 w-32  shadow-lg  text-base text-white">
+                <li onClick={() => setGender("Male")}>
+                  <a className="py-0">Male</a>
+                </li>
+                <li onClick={() => setGender("Female")}>
+                  <a className="py-0">Female</a>
+                </li>
+                <li onClick={() => setGender("Others")}>
+                  <a className="py-0">Others</a>
+                </li>
+              </ul>
+            </details>
+
+            {/* for save profile button */}
+            <div className="card-actions flex justify-end mt-4">
+              <button
+                onClick={editProfileHandler}
+                className={`${styles.btn} px-3 py-2 rounded-full text-base font-semibold`}
+              >
                 Save Profile
               </button>
             </div>
+
+            {/* for error show */}
+            {/* {error && <p className="text-red-400">{error}</p>} */}
           </div>
         </div>
 
         {/* user own profile */}
 
-        <div className="card bg-base-300 w-96  mx-4 shadow-xl">
+        <div
+          className={`card bg-white text-stone-950  border-stone-950 border-2  text-base font-normal ${styles.widthCard2} mx-4 shadow-xl rounded-none `}
+        >
           <figure>
-            <img src={photoUrl} alt="photo" className="w-96 height" />
+            <img
+              src={photoUrl}
+              alt="photo"
+              className={`${styles.imgSetting}`}
+            />
           </figure>
-          <div className="card-body">
-            <h2 className="card-title">
-              {firstName + " " + lastName} +{" "}
-              {age && gender && <p>{" (  " + age + ", " + gender + " ) "}</p>}{" "}
-            </h2>
+          <div className="mt-4 mb-4 ms-4 text-base font-semibold">
+            <p>{firstName + " " + lastName}</p>
+            <p> {about}</p>
 
-            <p>{about}</p>
-            <div className="card-actions justify-center my-2">
-              <button className="btn btn-primary">Ignore</button>
-              <button className="btn btn-secondary">Interested</button>
-            </div>
+            {age && gender && <p>{"Gender: " + gender + ", Age: " + age}</p>}
           </div>
         </div>
       </div>

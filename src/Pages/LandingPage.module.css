@@ -16,11 +16,8 @@
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 1;
 }
-.height {
-  min-height: 88%;
-}
 
-.btn {
+.joinBtn {
   background: rgb(253, 50, 110);
   background: linear-gradient(
     119deg,
@@ -28,6 +25,28 @@
     rgb(246, 56, 35) 100%
   );
   color: white;
+}
+
+.joinBtn:hover {
+  color: black;
+  border: 1px solid white;
+}
+
+.loginBtn {
+  background: white;
+
+  color: black;
+}
+.loginBtn:hover {
+  background: rgb(253, 50, 110);
+  background: linear-gradient(
+    119deg,
+    rgba(253, 50, 110, 1) 0%,
+    rgb(246, 56, 35) 100%
+  );
+  color: black;
+
+  border: 1px solid white;
 }
 
 .textShadow {

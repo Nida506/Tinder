@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 import { removeUser } from "../utils/userSlice";
-import styles from "./Navbar.module.css";
+
 const Navbar = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
@@ -14,17 +14,17 @@ const Navbar = () => {
     try {
       await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
       dispatch(removeUser());
-      return navigate("/login");
+      return navigate("/app/login");
     } catch (err) {
       console.error(err);
     }
   };
 
   return (
-    <div className={`navbar py-3  ${user ? "bg-black" : "bg-none"}`}>
+    <div className="navbar py-3 navHeight bg-stone-950">
       <div className="flex-1">
         <Link
-          to={user ? "/explore" : ""}
+          to={user ? "/app/explore" : "/app/login"}
           className=" text-4xl font-bold  text-white"
         >
           <div className="flex">
@@ -35,46 +35,49 @@ const Navbar = () => {
       </div>
       {user ? (
         <div className="flex-none gap-2">
-          <div className="form-control">Welcome , {user.firstName}</div>
-          <div className="dropdown dropdown-end mx-3 flex ">
+          <div className="form-control text-white font-semibold text-lg">
+            Hi, {user.firstName}
+          </div>
+          <div className="dropdown dropdown-end  ms-1 me-3  flex ">
             <div
               tabIndex={0}
               role="button"
-              className="btn btn-ghost btn-circle avatar"
+              className="btn  btn-circle avatar border-2 border-rose-500 hover:border-rose-500"
             >
-              <div className="w-10 rounded-full">
+              <div className="w-10 rounded-full ">
                 <img alt="Tailwind CSS Navbar component" src={user.photoUrl} />
               </div>
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+              className="menu menu-sm  dropdown-content bg-stone-950 rounded-box z-[1] mt-10 border-2 border-white w-52 p-2 shadow"
             >
               <li>
-                <Link to="/profile" className="justify-between">
+                <Link to="/app/profile" className="justify-between mt-0.5">
                   Profile
                   <span className="badge">New</span>
                 </Link>
               </li>
               <li>
-                <Link to="/connections">Connections</Link>
+                <Link to="/app/connections" className="mt-0.5">
+                  Connections
+                </Link>
               </li>
               <li>
-                <Link to="/requests">Requests</Link>
+                <Link to="/app/requests" className="mt-0.5">
+                  Requests
+                </Link>
               </li>
               <li>
-                <Link onClick={logoutHandler}>Logout</Link>
+                <Link onClick={logoutHandler} className="mt-0.5">
+                  Logout
+                </Link>
               </li>
             </ul>
           </div>
         </div>
       ) : (
-        <Link
-          to="/login"
-          className={`${styles.btn} text-base font-semibold rounded-full   py-2 px-4   me-3`}
-        >
-          Log In
-        </Link>
+        ""
       )}
     </div>
   );

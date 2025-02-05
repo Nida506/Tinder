@@ -1,3 +1,9 @@
+import styles from "./RequestList.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
 const RequestList = ({ request, reviewRequestButtonHandler }) => {
   // extract detail of request
   const { firstName, lastName, photoUrl, age, gender, about } =
@@ -5,37 +11,37 @@ const RequestList = ({ request, reviewRequestButtonHandler }) => {
 
   return (
     <div className="flex justify-center mb-4">
-      <div className="navbar bg-white  w-1/2">
-        <div className=" px-2 ">
+      <div
+        className={`navbar bg-white ${styles.listSetting} flex justify-between `}
+      >
+        <div className="w-28 ">
           <img
             src={photoUrl}
             alt="Photo"
-            className="rounded-full h-20 w-20 border-red-400 border-4"
+            className={`rounded-full ${styles.imgSetting} me-0 pe-0 right-0 border-stone-950 border-2`}
           ></img>
         </div>
-        <div className="flex items-start flex-col px-2">
-          <div className="font-semibold text-black text-2xl">
+        <div className="flex items-start flex-col ps-2 pe-0">
+          <div className="font-semibold text-stone-950 text-2xl">
             {firstName + " " + lastName}
           </div>
 
-          <div className="font-semibold text-slate-600 text-base">{about}</div>
+          <div className="font-semibold text-stone-950 text-base">{about}</div>
         </div>
 
         {/* for buttons */}
 
-        <div className="flex  ms-5">
-          <button
+        <div className="flex">
+          <FontAwesomeIcon
             onClick={() => reviewRequestButtonHandler("rejected", request._id)}
-            className="btn btn-secondary mx-2"
-          >
-            Reject
-          </button>
-          <button
+            icon={faCircleXmark}
+            className={` ${styles.danger} text-5xl me-2 hover:text-6xl`}
+          />
+          <FontAwesomeIcon
             onClick={() => reviewRequestButtonHandler("accepted", request._id)}
-            className="btn btn-primary  mx-2"
-          >
-            Accept
-          </button>
+            icon={faCircleCheck}
+            className={` ${styles.success} text-5xl me-2 hover:text-6xl`}
+          />
         </div>
       </div>
     </div>

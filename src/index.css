@@ -2,10 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-
-.height{
-    height: 30rem;
+.backgroundImage {
+  background-image: url("/backgroundImage.png");
+  background-position: center;
+  background-size: cover;
 }
-.height1{
-    height : 19rem;
+
+.navHeight {
+  height: 10vh;
+}
+.height {
+  height: 90vh;
+  overflow: hidden;
 }

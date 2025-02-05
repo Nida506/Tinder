@@ -15,14 +15,16 @@ const Body = () => {
   const fetchUser = async () => {
     try {
       if (userData) return;
-      const res = await axios.get(BASE_URL + "/profile/view", {
-        withCredentials: true,
-      });
+      else {
+        const res = await axios.get(BASE_URL + "/profile/view", {
+          withCredentials: true,
+        });
 
-      dispatch(addUser(res.data));
+        dispatch(addUser(res.data));
+      }
     } catch (err) {
       //token not valid
-      if (err.status === 401) navigate("/");
+      if (err.status === 401) navigate("/app/login");
       //other code errror
       console.error(err);
     }

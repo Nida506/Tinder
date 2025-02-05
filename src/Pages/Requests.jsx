@@ -40,28 +40,28 @@ const Requests = () => {
   if (!requests) return;
   if (requests.length === 0)
     return (
-      <h1 className="text-3xl text-center text-white font-medium my-7">
-        You have No Friend Requests !!!!
-      </h1>
+      <div className="backgroundImage height">
+        <h1 className="text-4xl text-center text-stone-950 font-semibold py-7">
+          You have No Friend Requests !!!!
+        </h1>
+      </div>
     );
 
   return (
-    <>
-      <p className="text-3xl text-center text-white font-medium my-7">
+    <div className="backgroundImage height">
+      <p className="text-4xl text-center text-stone-950 font-semibold   py-7">
         Friend Requests
       </p>
 
-      {requests &&
-        requests.map((request) => {
-          return (
-            <RequestList
-              key={request.fromUserId._id}
-              request={request}
-              reviewRequestButtonHandler={reviewRequestButtonHandler}
-            />
-          );
-        })}
-    </>
+      {requests.length > 0 &&
+        requests.map((request) => (
+          <RequestList
+            key={request.fromUserId._id}
+            request={request}
+            reviewRequestButtonHandler={reviewRequestButtonHandler}
+          />
+        ))}
+    </div>
   );
 };
 

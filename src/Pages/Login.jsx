@@ -4,15 +4,24 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
+import styles from "./Login.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCircleCheck,
+  faCircleXmark,
+} from "@fortawesome/free-solid-svg-icons";
+
 const Login = () => {
   const [emailId, setEmailId] = useState("babar@gmail.com");
   const [password, setPassword] = useState("babar@123N");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [error, setError] = useState("");
+  const [showValidMsgToast, setShowValidMsgToast] = useState(false);
+  const [showInValidMsgToast, setShowInValidMsgToast] = useState(false);
   const [isSignIn, setIsSignIn] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   //login handler
   const loginHandler = async () => {
     try {
@@ -24,12 +33,18 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-
-      dispatch(addUser(res.data));
-
-      return navigate("/explore");
+      console.log(res);
+      dispatch(addUser(res.data.data));
+      setShowValidMsgToast(res.data.message);
+      setTimeout(() => {
+        setShowInValidMsgToast(false);
+        return navigate("/app/explore");
+      }, 600);
     } catch (err) {
-      setError(err.response.data);
+      setShowInValidMsgToast(err.response.data);
+      setTimeout(() => {
+        setShowInValidMsgToast(false);
+      }, 3000);
     }
   };
 
@@ -41,99 +56,120 @@ const Login = () => {
         { firstName, lastName, emailId, password },
         { withCredentials: true }
       );
-      console.log(res);
+
       dispatch(addUser(res.data.data));
-      return navigate("/profile");
+      return navigate("/app/profile");
     } catch (err) {
       console.error(err);
     }
   };
 
   return (
-    <div className="flex justify-center mt-12">
-      <div className="card bg-base-300 w-96 shadow-xl ">
-        <div className="card-body">
-          <h2 className="card-title flex justify-center text-primary">
-            {isSignIn ? "Login" : "SignUp"}
-          </h2>
+    <>
+      {/* for toast message */}
 
-          {/* for first Name and Second Name  */}
-
-          {isSignIn ? (
-            ""
-          ) : (
-            <>
-              <label className="form-control w-full max-w-xs">
-                <div className="label">
-                  <span className="label-text">First Name</span>
-                </div>
-                <input
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  className="input input-bordered w-full max-w-xs"
-                />
-              </label>
-              <label className="form-control w-full max-w-xs">
-                <div className="label">
-                  <span className="label-text">Last Name</span>
-                </div>
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="input input-bordered w-full max-w-xs"
-                />
-              </label>
-            </>
-          )}
-
-          {/* for email */}
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Email ID</span>
-            </div>
-            <input
-              type="text"
-              value={emailId}
-              onChange={(e) => setEmailId(e.target.value)}
-              placeholder="Type here"
-              className="input input-bordered w-full max-w-xs"
+      {(showValidMsgToast || showInValidMsgToast) && (
+        <div className="toast toast-top toast-center mt-2">
+          <div className="alert py-2 alert-white border-none text-stone-950 font-semibold text-xl bg-white">
+            <FontAwesomeIcon
+              icon={showValidMsgToast ? faCircleCheck : faCircleXmark}
+              className={`text-3xl ${
+                showValidMsgToast ? "text-lime-500" : "text-red-500"
+              }`}
             />
-          </label>
-
-          <label className="form-control w-full max-w-xs">
-            <div className="label">
-              <span className="label-text">Password</span>
-            </div>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Type here"
-              className="input input-bordered w-full max-w-xs"
-            />
-          </label>
-          <p className="text-red-400">{error}</p>
-          <div className="card-actions flex justify-center mt-1">
-            {isSignIn ? (
-              <button onClick={loginHandler} className="btn btn-primary">
-                Login
-              </button>
-            ) : (
-              <button onClick={signUpHandler} className="btn btn-primary">
-                Sign Up
-              </button>
-            )}
+            <span>
+              {showValidMsgToast ? showValidMsgToast : showInValidMsgToast}
+            </span>
           </div>
-          <p onClick={() => setIsSignIn((value) => !value)}>
-            {isSignIn
-              ? "Don't have an Account ? SignUp"
-              : " Already have an Account ? Login Now"}
-          </p>
+        </div>
+      )}
+
+      <div className="flex justify-center height items-center backgroundImage ">
+        <div className=" bg-white w-80 shadow-xl rounded-lg ">
+          <div className="card-body">
+            <h2
+              className={`card-title flex justify-center pb-3  ${styles.cardTitleTextSize} font-bold text-stone-950`}
+            >
+              {isSignIn ? "Welcome to Tinder" : "Create Account"}
+            </h2>
+
+            {/* for first Name and Second Name  */}
+
+            {isSignIn ? (
+              ""
+            ) : (
+              <>
+                <label className="form-control w-full max-w-xs">
+                  <input
+                    type="text"
+                    value={firstName}
+                    placeholder="Enter Your First Name ..."
+                    onChange={(e) => setFirstName(e.target.value)}
+                    className="input input-bordered placeholder-stone-300 bg-stone-950 text-white w-full max-w-xs"
+                  />
+                </label>
+                <label className="form-control w-full max-w-xs">
+                  <input
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    placeholder="Enter Your Last Name ..."
+                    className="input input-bordered w-full max-w-xs bg-stone-950 placeholder-stone-300 text-white"
+                  />
+                </label>
+              </>
+            )}
+
+            {/* for email */}
+            <label className="form-control w-64   max-w-xs">
+              <input
+                type="text"
+                value={emailId}
+                onChange={(e) => setEmailId(e.target.value)}
+                placeholder="Enter Email ..."
+                className="input input-bordered w-full text-white  placeholder-stone-300 bg-stone-950 max-w-xs"
+              />
+            </label>
+
+            <label className="form-control w-64  max-w-xs">
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter Password ..."
+                className="input input-bordered w-full bg-stone-950 placeholder-stone-300 text-white max-w-xs"
+              />
+            </label>
+
+            <div className="card-actions  flex justify-center mt-1">
+              {isSignIn ? (
+                <button
+                  onClick={loginHandler}
+                  className={`${styles.btn} px-12 pt-1 pb-1.5 text-lg font-bold`}
+                >
+                  Login
+                </button>
+              ) : (
+                <button
+                  onClick={signUpHandler}
+                  className={`${styles.btn} px-12 pt-1 pb-1.5 text-lg font-bold`}
+                >
+                  Sign Up
+                </button>
+              )}
+            </div>
+            <p
+              className={` ${styles.textShadow} text-stone-950 font-semibold cursor-pointer text-center `}
+              onClick={() => setIsSignIn((value) => !value)}
+            >
+              {isSignIn
+                ? "Don't have an Account ? SignUp"
+                : " Already have Account? Login Now"}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

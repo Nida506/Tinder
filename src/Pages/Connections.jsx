@@ -27,14 +27,16 @@ const Connections = () => {
   if (!connections) return;
   if (connections.length === 0)
     return (
-      <h1 className="text-3xl text-center text-white font-medium my-7">
-        No connections !!!!
-      </h1>
+      <div className="backgroundImage height">
+        <h1 className="text-4xl text-center text-stone-950 font-semibold py-7">
+          No connections !!!!
+        </h1>
+      </div>
     );
 
   return (
-    <>
-      <p className="text-3xl text-center text-white font-medium my-7">
+    <div className="backgroundImage height">
+      <p className="text-4xl text-center text-stone-950  font-semibold py-7">
         Connections
       </p>
 
@@ -44,7 +46,7 @@ const Connections = () => {
             <ConnectionList key={connection._id} connection={connection} />
           );
         })}
-    </>
+    </div>
   );
 };
 
