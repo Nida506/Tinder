@@ -1,2 +1,1 @@
-// base url
-export const BASE_URL = "/api";
+export const API_BASE_URL = "http://localhost:8213";
