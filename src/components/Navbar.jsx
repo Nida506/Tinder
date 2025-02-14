@@ -33,7 +33,7 @@ const Navbar = () => {
           </div>
         </Link>
       </div>
-      {user ? (
+      {user?.firstName ? (
         <div className="flex-none gap-2">
           <div className="form-control text-white font-semibold text-lg">
             Hi, {user.firstName}

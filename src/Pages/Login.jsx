@@ -12,8 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("babar@gmail.com");
-  const [password, setPassword] = useState("babar@123N");
+  const [emailId, setEmailId] = useState("aiza@gmail.com");
+  const [password, setPassword] = useState("aiza@123N");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [showValidMsgToast, setShowValidMsgToast] = useState(false);
