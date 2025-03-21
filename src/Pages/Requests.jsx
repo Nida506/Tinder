@@ -40,7 +40,7 @@ const Requests = () => {
   if (!requests) return;
   if (requests.length === 0)
     return (
-      <div className="backgroundImage height">
+      <div className=" bg-gradient-to-r from-[#8800FF] to-[#FF00C1] height">
         <h1 className="text-4xl text-center text-stone-950 font-semibold py-7">
           You have No Friend Requests !!!!
         </h1>
@@ -48,7 +48,7 @@ const Requests = () => {
     );
 
   return (
-    <div className="backgroundImage height">
+    <div className=" bg-gradient-to-r from-[#8800FF] to-[#FF00C1] height">
       <p className="text-4xl text-center text-stone-950 font-semibold   py-7">
         Friend Requests
       </p>

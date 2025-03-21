@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed, removeFromFeed } from "../utils/feedSlice";
@@ -46,7 +46,7 @@ const Feed = () => {
   if (!feed) return null;
   if (feed?.length <= 0)
     return (
-      <div className="backgroundImage height pt-14">
+      <div className=" bg-gradient-to-r from-[#8800FF] to-[#FF00C1] height pt-14">
         <h1 className="text-3xl text-center text-stone-950 font-medium">
           No more new users found!
         </h1>
@@ -54,12 +54,17 @@ const Feed = () => {
     );
 
   return (
-    <div className="flex justify-center backgroundImage height pt-14 ">
-      <UserCard
-        key={feed[0]._id}
-        user={feed[0]}
-        sendRequestHandler={sendRequestHandler}
-      />
+    <div className="grid place-items-center backgroundImage ">
+      {feed.map((card) => {
+        return (
+          <UserCard
+            key={card._id}
+            user={card}
+            sendRequestHandler={sendRequestHandler}
+            feed={feed}
+          />
+        );
+      })}
     </div>
   );
 };

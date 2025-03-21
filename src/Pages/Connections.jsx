@@ -27,7 +27,7 @@ const Connections = () => {
   if (!connections) return;
   if (connections.length === 0)
     return (
-      <div className="backgroundImage height">
+      <div className=" bg-gradient-to-r from-[#8800FF] to-[#FF00C1] height">
         <h1 className="text-4xl text-center text-stone-950 font-semibold py-7">
           No connections !!!!
         </h1>
@@ -35,7 +35,7 @@ const Connections = () => {
     );
 
   return (
-    <div className="backgroundImage height">
+    <div className=" bg-gradient-to-r from-[#8800FF] to-[#FF00C1] height">
       <p className="text-4xl text-center text-stone-950  font-semibold py-7">
         Connections
       </p>

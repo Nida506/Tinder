@@ -9,6 +9,7 @@ import Profile from "./Pages/Profile";
 import Connections from "./Pages/Connections";
 import Requests from "./Pages/Requests";
 import LandingPage from "./Pages/LandingPage";
+import Premium from "./Pages/Premium";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/app/profile" element={<Profile />} />
               <Route path="/app/connections" element={<Connections />} />
               <Route path="/app/requests" element={<Requests />} />
+              <Route path="/app/premium" element={<Premium />} />
             </Route>
           </Routes>
         </BrowserRouter>

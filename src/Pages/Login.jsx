@@ -16,8 +16,8 @@ const Login = () => {
   const [password, setPassword] = useState("aiza@123N");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [showValidMsgToast, setShowValidMsgToast] = useState(false);
-  const [showInValidMsgToast, setShowInValidMsgToast] = useState(false);
+  const [showValidMsgToast, setShowValidMsgToast] = useState("");
+  const [showInValidMsgToast, setShowInValidMsgToast] = useState("");
   const [isSignIn, setIsSignIn] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,13 +37,14 @@ const Login = () => {
       dispatch(addUser(res.data.data));
       setShowValidMsgToast(res.data.message);
       setTimeout(() => {
-        setShowInValidMsgToast(false);
+        setShowInValidMsgToast("");
         return navigate("/app/explore");
       }, 600);
     } catch (err) {
-      setShowInValidMsgToast(err.response.data);
+      const errorMessage = err.response?.data?.message || "Login failed.";
+      setShowInValidMsgToast(errorMessage);
       setTimeout(() => {
-        setShowInValidMsgToast(false);
+        setShowInValidMsgToast("");
       }, 3000);
     }
   };
@@ -60,14 +61,17 @@ const Login = () => {
       dispatch(addUser(res.data.data));
       return navigate("/app/profile");
     } catch (err) {
-      console.error(err);
+      const errorMessage = err.response?.data?.message || "Sign up failed.";
+      setShowInValidMsgToast(errorMessage);
+      setTimeout(() => {
+        setShowInValidMsgToast("");
+      }, 3000);
     }
   };
 
   return (
     <>
-      {/* for toast message */}
-
+      {/* Toast Messages */}
       {(showValidMsgToast || showInValidMsgToast) && (
         <div className="toast toast-top toast-center mt-2">
           <div className="alert py-2 alert-white border-none text-stone-950 font-semibold text-xl bg-white">
@@ -77,27 +81,24 @@ const Login = () => {
                 showValidMsgToast ? "text-lime-500" : "text-red-500"
               }`}
             />
-            <span>
-              {showValidMsgToast ? showValidMsgToast : showInValidMsgToast}
+            <span className="ml-2">
+              {showValidMsgToast || showInValidMsgToast}
             </span>
           </div>
         </div>
       )}
 
-      <div className="flex justify-center height items-center backgroundImage ">
-        <div className=" bg-white w-80 shadow-xl rounded-lg ">
+      <div className="flex justify-center height items-center  bg-gradient-to-r from-[#8800FF] to-[#FF00C1]  ">
+        <div className="bg-white w-80 shadow-xl rounded-lg">
           <div className="card-body">
             <h2
-              className={`card-title flex justify-center pb-3  ${styles.cardTitleTextSize} font-bold text-stone-950`}
+              className={`card-title flex text-xl justify-center pb-3  font-bold text-stone-950`}
             >
-              {isSignIn ? "Welcome to Tinder" : "Create Account"}
+              {isSignIn ? "Welcome to NetWorkHub" : "Create Account"}
             </h2>
 
-            {/* for first Name and Second Name  */}
-
-            {isSignIn ? (
-              ""
-            ) : (
+            {/* Sign Up Fields */}
+            {!isSignIn && (
               <>
                 <label className="form-control w-full max-w-xs">
                   <input
@@ -120,18 +121,19 @@ const Login = () => {
               </>
             )}
 
-            {/* for email */}
-            <label className="form-control w-64   max-w-xs">
+            {/* Email Field */}
+            <label className="form-control w-64 max-w-xs">
               <input
                 type="text"
                 value={emailId}
                 onChange={(e) => setEmailId(e.target.value)}
                 placeholder="Enter Email ..."
-                className="input input-bordered w-full text-white  placeholder-stone-300 bg-stone-950 max-w-xs"
+                className="input input-bordered w-full text-white placeholder-stone-300 bg-stone-950 max-w-xs"
               />
             </label>
 
-            <label className="form-control w-64  max-w-xs">
+            {/* Password Field */}
+            <label className="form-control w-64 max-w-xs">
               <input
                 type="password"
                 value={password}
@@ -141,7 +143,8 @@ const Login = () => {
               />
             </label>
 
-            <div className="card-actions  flex justify-center mt-1">
+            {/* Action Buttons */}
+            <div className="card-actions flex justify-center mt-1">
               {isSignIn ? (
                 <button
                   onClick={loginHandler}
@@ -158,13 +161,15 @@ const Login = () => {
                 </button>
               )}
             </div>
+
+            {/* Toggle Sign In/Sign Up */}
             <p
-              className={` ${styles.textShadow} text-stone-950 font-semibold cursor-pointer text-center `}
+              className={`${styles.textShadow} text-stone-950 font-semibold cursor-pointer text-center`}
               onClick={() => setIsSignIn((value) => !value)}
             >
               {isSignIn
-                ? "Don't have an Account ? SignUp"
-                : " Already have Account? Login Now"}
+                ? "Don't have an Account? Sign Up"
+                : "Already have an Account? Login Now"}
             </p>
           </div>
         </div>

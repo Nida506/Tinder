@@ -21,7 +21,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar py-3 navHeight bg-stone-950">
+    <div className="navbar py-10 navHeight bg-stone-950">
       <div className="flex-1">
         <Link
           to={user ? "/app/explore" : "/app/login"}
@@ -29,7 +29,7 @@ const Navbar = () => {
         >
           <div className="flex">
             <img src="/logo.png" alt="logo" className="h-12 w-10 me-2" />
-            <h1 className="mt-1"> Tinder</h1>
+            <h1 className="mt-1">NetWorkHub</h1>
           </div>
         </Link>
       </div>
@@ -59,6 +59,12 @@ const Navbar = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/app/premium" className="mt-0.5">
+                  Premium
+                </Link>
+              </li>
+
+              <li>
                 <Link to="/app/connections" className="mt-0.5">
                   Connections
                 </Link>
@@ -66,6 +72,11 @@ const Navbar = () => {
               <li>
                 <Link to="/app/requests" className="mt-0.5">
                   Requests
+                </Link>
+              </li>
+              <li>
+                <Link to="/app/premium" className="mt-0.5">
+                  Chat
                 </Link>
               </li>
               <li>

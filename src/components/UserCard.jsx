@@ -1,49 +1,53 @@
 import React from "react";
-import TinderCard from "react-tinder-card";
-import styles from "./UserCard.module.css";
-const UserCard = ({ user, sendRequestHandler }) => {
-  const { _id, photoUrl, firstName, lastName, about } = user;
+import { motion, useMotionValue, useTransform } from "framer-motion";
 
-  const onSwipe = (direction) => {
-    console.log(`You swiped ${direction}`);
+const UserCard = ({ user, sendRequestHandler, feed }) => {
+  const { _id, photoUrl, firstName, lastName } = user;
 
-    // Determine the status based on the swipe direction
-    const status = direction === "right" ? "interested" : "ignored";
+  // for animation
+  const x = useMotionValue(0);
+  const rotateRaw = useTransform(x, [-150, 150], [-18, 18]);
+  const opacity = useTransform(x, [-150, 0, 150], [0, 1, 0]);
 
-    // Pass the status and user ID to sendRequestHandler
+  const isFront = _id === feed[feed.length - 1]._id;
+
+  const rotate = useTransform(() => {
+    const offset = isFront ? 0 : -6;
+
+    return `${rotateRaw.get() + offset}deg`;
+  });
+
+  // Handle drag
+  const handleDragEnd = () => {
+    const status = x.get() > 0 ? "interested" : "ignored";
+    console.log(status);
     sendRequestHandler(status, _id);
   };
 
-  const onCardLeftScreen = () => {
-    console.log("Card left the screen");
-  };
-
   return (
-    <div className="flex justify-center ">
-      <TinderCard
-        onSwipe={onSwipe}
-        onCardLeftScreen={onCardLeftScreen}
-        className={` ${styles.cardSetting} bg-stone-950 rounded-sm shadow-lg overflow-hidden`}
-      >
-        <div className={` flex-col  justify-center items-center`}>
-          <img
-            src={photoUrl}
-            alt={`${firstName} ${lastName}`}
-            className={` ${styles.imgSetting}`}
-          />
-          <div className={`pb-2 flex-col items-center mx-6 my-6`}>
-            <div className=" ">
-              <h2
-                className={`text-xl font-semibold text-white cursor-pointer `}
-              >{`${firstName} ${lastName} `}</h2>
-            </div>
-            <div className="text-base text-white">
-              <p>{about}</p>
-            </div>
-          </div>
-        </div>
-      </TinderCard>
-    </div>
+    <motion.img
+      src={photoUrl}
+      alt={`${firstName} ${lastName}`}
+      className="h-96 w-72 origin-bottom rounded-lg bg-white object-cover hover:cursor-grab active:cursor-grabbing"
+      style={{
+        position: "absolute", // Stack cards on top of each other
+
+        margin: "auto", // Center them
+        x,
+        opacity,
+        rotate,
+        transition: "0.125s transform",
+        boxShadow: isFront
+          ? "0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5)"
+          : undefined,
+      }}
+      animate={{
+        scale: isFront ? 1.05 : 0.98,
+      }}
+      drag={isFront ? "x" : false}
+      dragConstraints={{}}
+      onDragEnd={handleDragEnd}
+    />
   );
 };
 
